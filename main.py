@@ -17,23 +17,72 @@ from uuid import uuid4
 from secrets import token_urlsafe
 
 from database import SessionLocal, engine, Base
-from models import User, Resume, ATSAnalysis, CareerRecommendation, SalaryPrediction, JobRecommendation, CourseRecommendation, SkillGapAnalysis, ResumeImprovement, ResumeBuilder
-from schemas import UserCreate, UserLogin, ResumeResponse, ProfileUpdate, ATSRequest, ATSResponse,ResumeImprovementRequest, ResumeImprovementResponse, SalaryPredictionResponse, SkillGapAnalysisRequest, CareerRecommendationRequest, CareerRecommendationResponse, SalaryPredictionRequest, SalaryPredictionResponse, JobRecommendationRequest, JobRecommendationResponse, CourseRecommendationRequest, CourseRecommendationResponse,ResumeBuilderRequest, ResumeBuilderResponse, DashboardAnalyticsResponse, InterviewEvalRequest, MockTestRequest
+from models import (
+    User,
+    Resume,
+    ATSAnalysis,
+    CareerRecommendation,
+    SalaryPrediction,
+    JobRecommendation,
+    CourseRecommendation,
+    SkillGapAnalysis,
+    ResumeImprovement,
+    ResumeBuilder
+)
+
+from schemas import (
+    UserCreate,
+    UserLogin,
+    ResumeResponse,
+    ProfileUpdate,
+    ATSRequest,
+    ATSResponse,
+    ResumeImprovementRequest,
+    ResumeImprovementResponse,
+    SalaryPredictionResponse,
+    SkillGapAnalysisRequest,
+    CareerRecommendationRequest,
+    CareerRecommendationResponse,
+    SalaryPredictionRequest,
+    SalaryPredictionResponse,
+    JobRecommendationRequest,
+    JobRecommendationResponse,
+    CourseRecommendationRequest,
+    CourseRecommendationResponse,
+    ResumeBuilderRequest,
+    ResumeBuilderResponse,
+    DashboardAnalyticsResponse,
+    InterviewEvalRequest,
+    MockTestRequest
+)
+
 from skills import SKILLS
 
+
+# ==========================
 # Create Database Tables
+# ==========================
 Base.metadata.create_all(bind=engine)
 
+
+# ==========================
 # Password Hashing
+# ==========================
 pwd_context = CryptContext(
     schemes=["bcrypt"],
     deprecated="auto"
 )
 
-app = FastAPI()
-Base.metadata.create_all(bind=engine)
 
+# ==========================
+# Create FastAPI App
+# ==========================
+app = FastAPI()
+
+
+# ==========================
 # Enable CORS
+# ==========================
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
@@ -41,13 +90,14 @@ app.add_middleware(
         "http://localhost:3001",
         "http://127.0.0.1:3000",
         "http://127.0.0.1:3001",
-        "*"
+
+        # Deployed React Frontend
+        "https://ai-powered-career-intelligence-frontend.onrender.com",
     ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 
 # Database Connection
 def get_db():
