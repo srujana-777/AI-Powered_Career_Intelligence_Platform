@@ -110,7 +110,7 @@ def get_db():
 
 ALLOWED_RESUME_EXTENSIONS = {".pdf"}
 # Environment variables take precedence; the local defaults support development.
-ADMIN_EMAIL = os.getenv("ADMIN_EMAIL") or "srujana3377@gmail.com"
+ADMIN_EMAIL = os.getenv("ADMIN_EMAIL") or "admin@gmail.com.com"
 ADMIN_PASSWORD = os.getenv("ADMIN_PASSWORD") or "12345"
 ADMIN_SESSIONS = set()
 
